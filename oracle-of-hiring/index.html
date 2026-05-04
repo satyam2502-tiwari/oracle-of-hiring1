@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oracle of Hiring — Egyptian Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --gold-dark: #8B6914;
+    --sand: #F5E6C8;
+    --sand-dark: #E8D5A3;
+    --obsidian: #1A1208;
+    --papyrus: #FDF6E3;
+    --deep-blue: #0D2545;
+    --lapis: #1A3E6E;
+    --turquoise: #2A7D7B;
+    --crimson: #8B1A1A;
+    --hieroglyph: #6B4C11;
+  }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--obsidian);
+    color: var(--sand);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-texture {
+    position: fixed;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(201,168,76,0.04) 40px, rgba(201,168,76,0.04) 41px),
+      radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 60%),
+      var(--obsidian);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 48px 0 32px;
+  }
+  .eye-of-ra {
+    width: 64px;
+    height: 40px;
+    margin: 0 auto 16px;
+  }
+  .header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 38px;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-shadow: 0 0 40px rgba(201,168,76,0.4);
+  }
+  .header .subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 17px;
+    color: rgba(245,230,200,0.6);
+    letter-spacing: 2px;
+    margin-top: 8px;
+  }
+  .gold-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 20px auto;
+    max-width: 400px;
+  }
+  .gold-divider::before, .gold-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .divider-diamond {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* SECTION CARDS */
+  .section-card {
+    background: linear-gradient(135deg, rgba(26,18,8,0.9) 0%, rgba(13,25,45,0.9) 100%);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .section-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.06), transparent 50%, rgba(42,125,123,0.06));
+    pointer-events: none;
+  }
+  .corner-ornament {
+    position: absolute;
+    width: 24px; height: 24px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: 0.5;
+  }
+  .corner-ornament.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+  .corner-ornament.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+  .corner-ornament.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+  .corner-ornament.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* INPUT */
+  .input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .candidate-input {
+    flex: 1;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 3px;
+    padding: 10px 16px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    color: var(--sand);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .candidate-input::placeholder { color: rgba(245,230,200,0.3); }
+  .candidate-input:focus {
+    border-color: rgba(201,168,76,0.6);
+    background: rgba(201,168,76,0.1);
+  }
+  .btn-add {
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    padding: 10px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-add:hover {
+    background: rgba(201,168,76,0.25);
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,168,76,0.2);
+  }
+
+  /* CANDIDATES GRID */
+  .candidates-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 48px;
+  }
+  .candidate-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px;
+    padding: 6px 12px 6px 14px;
+    font-size: 15px;
+    color: var(--sand-dark);
+    transition: all 0.2s;
+    animation: fadeIn 0.3s ease;
+  }
+  .candidate-tag:hover { border-color: rgba(201,168,76,0.6); }
+  .candidate-tag .remove {
+    cursor: pointer;
+    color: rgba(201,168,76,0.4);
+    font-size: 18px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .candidate-tag .remove:hover { color: var(--crimson); }
+  .empty-hint {
+    font-style: italic;
+    color: rgba(245,230,200,0.3);
+    font-size: 15px;
+    line-height: 48px;
+  }
+
+  /* SETTINGS */
+  .settings-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .setting-item {
+    flex: 1;
+    min-width: 160px;
+  }
+  .setting-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: rgba(245,230,200,0.5);
+    margin-bottom: 8px;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+  }
+  .setting-select {
+    width: 100%;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 3px;
+    padding: 9px 14px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    color: var(--sand);
+    outline: none;
+    cursor: pointer;
+  }
+  .setting-select option { background: #1a1208; color: var(--sand); }
+
+  /* SUMMON BUTTON */
+  .summon-section {
+    text-align: center;
+    margin: 32px 0;
+  }
+  .btn-summon {
+    position: relative;
+    background: linear-gradient(135deg, #8B6914, #C9A84C, #8B6914);
+    border: none;
+    color: var(--obsidian);
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    padding: 18px 56px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 4px 30px rgba(201,168,76,0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+    overflow: hidden;
+  }
+  .btn-summon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s;
+  }
+  .btn-summon:hover::before { transform: translateX(100%); }
+  .btn-summon:hover {
+    box-shadow: 0 6px 40px rgba(201,168,76,0.45), inset 0 1px 0 rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+  }
+  .btn-summon:active { transform: translateY(0); }
+  .btn-summon:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* SPINNING */
+  .wheel-container {
+    text-align: center;
+    padding: 20px 0;
+    display: none;
+  }
+  .wheel-container.visible { display: block; }
+  .spinning-ring {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: var(--gold);
+    border-right-color: rgba(201,168,76,0.4);
+    margin: 0 auto 20px;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .wheel-label {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: rgba(201,168,76,0.7);
+    animation: pulse 1s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+  /* RESULT CARD */
+  .result-card {
+    display: none;
+    background: linear-gradient(135deg, rgba(13,25,45,0.95), rgba(26,18,8,0.95));
+    border: 1px solid var(--gold);
+    border-radius: 4px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    animation: revealResult 0.6s ease;
+    margin-bottom: 20px;
+  }
+  .result-card.visible { display: block; }
+  @keyframes revealResult {
+    0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .result-card::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .result-label {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(201,168,76,0.6);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .result-name {
+    font-family: 'Cinzel', serif;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--gold-light);
+    text-shadow: 0 0 60px rgba(201,168,76,0.5);
+    margin: 8px 0 4px;
+    line-height: 1.1;
+  }
+  .result-role {
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(245,230,200,0.6);
+    margin-bottom: 28px;
+  }
+  .result-decree {
+    background: rgba(201,168,76,0.08);
+    border-top: 1px solid rgba(201,168,76,0.2);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    padding: 16px 24px;
+    font-style: italic;
+    font-size: 17px;
+    color: rgba(245,230,200,0.75);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .result-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.35);
+    color: rgba(201,168,76,0.8);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 10px 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    background: rgba(201,168,76,0.1);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* STATS */
+  .stats-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat-box {
+    flex: 1;
+    background: rgba(201,168,76,0.05);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 3px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+  }
+  .stat-lbl {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: rgba(245,230,200,0.4);
+    margin-top: 4px;
+  }
+
+  /* HISTORY */
+  .history-list { list-style: none; }
+  .history-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+    animation: fadeIn 0.3s ease;
+  }
+  .history-item:last-child { border-bottom: none; }
+  .history-rank {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: rgba(201,168,76,0.4);
+    width: 28px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .history-name {
+    flex: 1;
+    font-size: 16px;
+    color: rgba(245,230,200,0.8);
+  }
+  .history-role {
+    font-size: 13px;
+    font-style: italic;
+    color: rgba(201,168,76,0.5);
+    flex-shrink: 0;
+  }
+  .history-time {
+    font-size: 12px;
+    color: rgba(245,230,200,0.25);
+    flex-shrink: 0;
+  }
+
+  /* FOOTER */
+  .footer-glyphs {
+    text-align: center;
+    padding: 32px 0 0;
+    font-size: 22px;
+    letter-spacing: 8px;
+    opacity: 0.2;
+    color: var(--gold);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 26px; letter-spacing: 4px; }
+    .result-name { font-size: 28px; }
+    .section-card { padding: 20px; }
+    .btn-summon { padding: 16px 32px; letter-spacing: 3px; }
+    .settings-row { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-texture"></div>
+
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <svg class="eye-of-ra" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="32" cy="20" rx="28" ry="16" stroke="#C9A84C" stroke-width="1.5"/>
+      <circle cx="32" cy="20" r="8" fill="#C9A84C" opacity="0.9"/>
+      <circle cx="32" cy="20" r="4" fill="#1A1208"/>
+      <path d="M32 36 Q40 46 48 40" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M32 36 Q24 46 16 40" stroke="#C9A84C" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M4 20 Q2 10 8 8" stroke="#C9A84C" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.5"/>
+      <path d="M60 20 Q62 10 56 8" stroke="#C9A84C" stroke-width="1" fill="none" stroke-linecap="round" opacity="0.5"/>
+    </svg>
+    <h1>The Oracle<br>of Hiring</h1>
+    <p class="subtitle">Let the gods decide who shall serve the kingdom</p>
+    <div class="gold-divider"><div class="divider-diamond"></div></div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row" id="statsRow" style="display:none">
+    <div class="stat-box">
+      <span class="stat-num" id="statCandidates">0</span>
+      <div class="stat-lbl">Seekers</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num" id="statDraws">0</span>
+      <div class="stat-lbl">Decrees</div>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num" id="statUnique">0</span>
+      <div class="stat-lbl">Chosen</div>
+    </div>
+  </div>
+
+  <!-- CANDIDATES INPUT -->
+  <div class="section-card">
+    <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+    <div class="section-title"><span>𓂀</span> Scroll of Seekers</div>
+    <div class="input-row">
+      <input class="candidate-input" id="candidateInput" placeholder="Enter a candidate's name…" maxlength="60" />
+      <button class="btn-add" onclick="addCandidate()">+ Inscribe</button>
+    </div>
+    <div class="candidates-grid" id="candidatesGrid">
+      <span class="empty-hint">No seekers have presented themselves…</span>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="section-card">
+    <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+    <div class="section-title"><span>𓋹</span> Divine Parameters</div>
+    <div class="settings-row">
+      <div class="setting-item">
+        <div class="setting-label">Sacred Role</div>
+        <select class="setting-select" id="roleSelect">
+          <option>Software Engineer</option>
+          <option>Product Manager</option>
+          <option>Data Scientist</option>
+          <option>UX Designer</option>
+          <option>DevOps Engineer</option>
+          <option>Marketing Lead</option>
+          <option>Project Manager</option>
+          <option>Business Analyst</option>
+          <option>QA Engineer</option>
+          <option>Scrum Master</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="setting-label">Selection Mode</div>
+        <select class="setting-select" id="modeSelect">
+          <option value="random">Pure Random</option>
+          <option value="noRepeat">No Repeat</option>
+          <option value="weighted">Weighted Draw</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <div class="setting-label">Number to Choose</div>
+        <select class="setting-select" id="countSelect">
+          <option value="1">1 — The Chosen</option>
+          <option value="2">2 — The Duumvirate</option>
+          <option value="3">3 — The Triumvirate</option>
+          <option value="5">5 — The Council</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMON BUTTON -->
+  <div class="summon-section">
+    <button class="btn-summon" id="summonBtn" onclick="summon()" disabled>
+      ⟡ Invoke the Oracle ⟡
+    </button>
+  </div>
+
+  <!-- SPINNING LOADER -->
+  <div class="wheel-container" id="wheelContainer">
+    <div class="spinning-ring"></div>
+    <div class="wheel-label">The sands of fate are shifting…</div>
+  </div>
+
+  <!-- RESULT CARD -->
+  <div class="result-card" id="resultCard">
+    <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+    <div class="result-label">𓂀 &nbsp; The Oracle Speaks &nbsp; 𓂀</div>
+    <div class="result-name" id="resultName">—</div>
+    <div class="result-role" id="resultRole">—</div>
+    <div class="result-decree" id="resultDecree">—</div>
+    <div class="result-actions">
+      <button class="btn-secondary" onclick="summon()">↺ &nbsp; Draw Again</button>
+      <button class="btn-secondary" onclick="copyResult()">⎘ &nbsp; Copy Decree</button>
+      <button class="btn-secondary" onclick="clearHistory()">✕ &nbsp; Reset Scrolls</button>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="section-card history-section" id="historySection" style="display:none">
+    <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
+    <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
+    <div class="section-title"><span>𓏏</span> Annals of the Chosen</div>
+    <ul class="history-list" id="historyList"></ul>
+  </div>
+
+  <!-- FOOTER HIEROGLYPHS -->
+  <div class="footer-glyphs">𓂀 𓋹 𓏏 𓃭 𓇯 𓆣 𓁹 𓐍 𓈖</div>
+
+</div>
+
+<script>
+  const decrees = [
+    "By the will of Ra, this soul shall lead the kingdom to glory.",
+    "Thoth has inscribed this name in the Book of Destinies.",
+    "The scales of Ma'at have found this seeker worthy of the sacred post.",
+    "Osiris himself has blessed this choice. The stars align.",
+    "Horus guides the hand. This candidate bears the mark of excellence.",
+    "The Sphinx has spoken. None may question what has been ordained.",
+    "From the sands of a thousand interviews, this name rises supreme.",
+    "Anubis has weighed the scrolls and found this seeker deserving.",
+    "Isis herself has breathed wisdom into this candidate's path.",
+    "The oracle confirms: this appointment shall echo through the ages.",
+  ];
+
+  let candidates = [];
+  let history = [];
+  let draws = 0;
+  let used = new Set();
+
+  const grid = document.getElementById('candidatesGrid');
+  const summonBtn = document.getElementById('summonBtn');
+  const resultCard = document.getElementById('resultCard');
+  const wheelContainer = document.getElementById('wheelContainer');
+  const historySection = document.getElementById('historySection');
+  const statsRow = document.getElementById('statsRow');
+
+  document.getElementById('candidateInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') addCandidate();
+  });
+
+  function addCandidate() {
+    const inp = document.getElementById('candidateInput');
+    const name = inp.value.trim();
+    if (!name || candidates.includes(name)) { inp.value = ''; return; }
+    candidates.push(name);
+    inp.value = '';
+    renderGrid();
+    updateStats();
+  }
+
+  function removeCandidate(name) {
+    candidates = candidates.filter(c => c !== name);
+    used.delete(name);
+    renderGrid();
+    updateStats();
+  }
+
+  function renderGrid() {
+    if (candidates.length === 0) {
+      grid.innerHTML = '<span class="empty-hint">No seekers have presented themselves…</span>';
+      summonBtn.disabled = true;
+      return;
+    }
+    summonBtn.disabled = false;
+    grid.innerHTML = candidates.map(c => `
+      <div class="candidate-tag">
+        <span>${escapeHtml(c)}</span>
+        <span class="remove" onclick="removeCandidate(${JSON.stringify(c)})">×</span>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function updateStats() {
+    const uniqueChosen = new Set(history.map(h => h.name)).size;
+    document.getElementById('statCandidates').textContent = candidates.length;
+    document.getElementById('statDraws').textContent = draws;
+    document.getElementById('statUnique').textContent = uniqueChosen;
+    if (candidates.length > 0 || draws > 0) {
+      statsRow.style.display = 'flex';
+    }
+  }
+
+  function summon() {
+    if (candidates.length === 0) return;
+
+    const mode = document.getElementById('modeSelect').value;
+    const count = parseInt(document.getElementById('countSelect').value);
+    const role = document.getElementById('roleSelect').value;
+
+    let pool = [...candidates];
+    if (mode === 'noRepeat') {
+      pool = candidates.filter(c => !used.has(c));
+      if (pool.length === 0) { used.clear(); pool = [...candidates]; }
+    }
+    if (pool.length === 0) pool = [...candidates];
+
+    resultCard.classList.remove('visible');
+    wheelContainer.classList.add('visible');
+    summonBtn.disabled = true;
+
+    setTimeout(() => {
+      wheelContainer.classList.remove('visible');
+
+      let chosen = [];
+      if (mode === 'weighted') {
+        const weights = candidates.map((_, i) => candidates.length - i);
+        const pickedSet = new Set();
+        const maxTries = pool.length * 10;
+        let tries = 0;
+        while (chosen.length < Math.min(count, pool.length) && tries < maxTries) {
+          tries++;
+          const total = pool.filter(c => !pickedSet.has(c)).reduce((sum, c, i) => sum + (weights[i] || 1), 0);
+          let r = Math.random() * total;
+          for (let i = 0; i < pool.length; i++) {
+            if (pickedSet.has(pool[i])) continue;
+            r -= (weights[i] || 1);
+            if (r <= 0) { pickedSet.add(pool[i]); chosen.push(pool[i]); break; }
+          }
+        }
+        if (chosen.length < Math.min(count, pool.length)) {
+          pool.filter(c => !pickedSet.has(c)).forEach(c => { if (chosen.length < count) chosen.push(c); });
+        }
+      } else {
+        const shuffled = [...pool].sort(() => Math.random() - 0.5);
+        chosen = shuffled.slice(0, Math.min(count, shuffled.length));
+      }
+
+      if (mode === 'noRepeat') chosen.forEach(c => used.add(c));
+
+      const displayName = count === 1 ? chosen[0] : chosen.join(' & ');
+      const roleText = count === 1 ? role : `${role} (×${chosen.length})`;
+      const decree = decrees[Math.floor(Math.random() * decrees.length)];
+
+      document.getElementById('resultName').textContent = displayName;
+      document.getElementById('resultRole').textContent = roleText;
+      document.getElementById('resultDecree').textContent = decree;
+      resultCard.classList.add('visible');
+      summonBtn.disabled = false;
+
+      draws++;
+      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      chosen.forEach(name => history.unshift({ name, role, time: now }));
+      if (history.length > 20) history = history.slice(0, 20);
+      renderHistory();
+      updateStats();
+    }, 1800);
+  }
+
+  function renderHistory() {
+    if (history.length === 0) { historySection.style.display = 'none'; return; }
+    historySection.style.display = 'block';
+    document.getElementById('historyList').innerHTML = history.map((h, i) => `
+      <li class="history-item">
+        <span class="history-rank">${String(i + 1).padStart(2, '0')}.</span>
+        <span class="history-name">${escapeHtml(h.name)}</span>
+        <span class="history-role">${escapeHtml(h.role)}</span>
+        <span class="history-time">${h.time}</span>
+      </li>
+    `).join('');
+  }
+
+  function copyResult() {
+    const name = document.getElementById('resultName').textContent;
+    const role = document.getElementById('resultRole').textContent;
+    const decree = document.getElementById('resultDecree').textContent;
+    const text = `Oracle of Hiring\nChosen: ${name}\nRole: ${role}\n\n"${decree}"`;
+    navigator.clipboard.writeText(text).catch(() => {
+      alert('Copy failed — please copy manually.');
+    });
+  }
+
+  function clearHistory() {
+    history = [];
+    draws = 0;
+    used.clear();
+    historySection.style.display = 'none';
+    resultCard.classList.remove('visible');
+    updateStats();
+  }
+</script>
+
+</body>
+</html>
