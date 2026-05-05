@@ -50,8 +50,8 @@
     margin: 0 auto;
     padding: 0 20px 60px;
   }
-
-  /* HEADER */
+  
+    /* HEADER */
   .header {
     text-align: center;
     padding: 48px 0 32px;
@@ -141,8 +141,8 @@
     align-items: center;
     gap: 10px;
   }
-
-  /* INPUT */
+  
+    /* INPUT */
   .input-row {
     display: flex;
     gap: 10px;
@@ -191,68 +191,67 @@
     gap: 8px;
     min-height: 48px;
   }
-  .candidate-tag {
+
+  /* CARTOUCHE */
+  .cartouche {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+    border: 2px solid var(--gold);
+    border-radius: 40px;
+    position: relative;
+    margin: 4px;
+  }
+  .cartouche::before, .cartouche::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 4px;
+    background: var(--gold);
+  }
+  .cartouche::before { top: -2px; left: 50%; transform: translateX(-50%); }
+  .cartouche::after { bottom: -2px; left: 50%; transform: translateX(-50%); }
+
+  .cartouche-icon {
+    font-size: 24px;
+    margin-bottom: 4px;
+  }
+  .cartouche-name {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    color: var(--sand);
+    letter-spacing: 1px;
+  }
+  .cartouche .remove {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    background: var(--crimson);
+    border: none;
+    border-radius: 50%;
+    color: var(--sand);
+    font-size: 14px;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: rgba(201,168,76,0.1);
-    border: 1px solid rgba(201,168,76,0.3);
-    border-radius: 2px;
-    padding: 6px 12px 6px 14px;
-    font-size: 15px;
-    color: var(--sand-dark);
-    transition: all 0.2s;
-    animation: fadeIn 0.3s ease;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
-  .candidate-tag:hover { border-color: rgba(201,168,76,0.6); }
-  .candidate-tag .remove {
-    cursor: pointer;
-    color: rgba(201,168,76,0.4);
-    font-size: 18px;
-    line-height: 1;
-    transition: color 0.2s;
-  }
-  .candidate-tag .remove:hover { color: var(--crimson); }
+  .cartouche:hover .remove { opacity: 1; }
+
   .empty-hint {
     font-style: italic;
     color: rgba(245,230,200,0.3);
     font-size: 15px;
     line-height: 48px;
   }
-
-  /* SETTINGS */
-  .settings-row {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .setting-item {
-    flex: 1;
-    min-width: 160px;
-  }
-  .setting-label {
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: rgba(245,230,200,0.5);
-    margin-bottom: 8px;
-    font-family: 'Cinzel', serif;
-    text-transform: uppercase;
-  }
-  .setting-select {
-    width: 100%;
-    background: rgba(201,168,76,0.06);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 3px;
-    padding: 9px 14px;
-    font-family: 'Crimson Pro', serif;
-    font-size: 15px;
-    color: var(--sand);
-    outline: none;
-    cursor: pointer;
-  }
-  .setting-select option { background: #1a1208; color: var(--sand); }
-
-  /* SUMMON BUTTON */
+  
+    /* SUMMON BUTTON */
   .summon-section {
     text-align: center;
     margin: 32px 0;
@@ -294,33 +293,91 @@
     transform: none;
   }
 
-  /* SPINNING */
-  .wheel-container {
-    text-align: center;
-    padding: 20px 0;
+  /* ELIMINATION ARENA */
+  .elimination-arena {
     display: none;
+    background: linear-gradient(135deg, rgba(13,25,45,0.95), rgba(26,18,8,0.95));
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 40px;
+    margin: 20px 0;
+    text-align: center;
   }
-  .wheel-container.visible { display: block; }
-  .spinning-ring {
-    width: 120px; height: 120px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: var(--gold);
-    border-right-color: rgba(201,168,76,0.4);
-    margin: 0 auto 20px;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .wheel-label {
-    font-family: 'Cinzel', serif;
-    font-size: 13px;
-    letter-spacing: 3px;
-    color: rgba(201,168,76,0.7);
-    animation: pulse 1s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+  .elimination-arena.visible { display: block; }
 
-  /* RESULT CARD */
+  .arena-title {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: rgba(201,168,76,0.7);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+
+  .arena-names {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+
+  .arena-name {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--sand);
+    padding: 12px 24px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 4px;
+    position: relative;
+    transition: all 0.5s ease;
+  }
+
+  .arena-name.eliminated {
+    color: rgba(139, 26, 26, 0.6);
+    text-decoration: line-through;
+    text-decoration-color: var(--crimson);
+    text-decoration-thickness: 3px;
+    border-color: rgba(139, 26, 26, 0.3);
+    background: rgba(139, 26, 26, 0.1);
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+
+  .arena-name.chosen {
+    color: var(--gold-light);
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.2);
+    transform: scale(1.15);
+    box-shadow: 0 0 30px rgba(201,168,76,0.4), 0 0 60px rgba(201,168,76,0.2);
+    animation: chosenPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes chosenPulse {
+    0%, 100% { box-shadow: 0 0 30px rgba(201,168,76,0.4), 0 0 60px rgba(201,168,76,0.2); }
+    50% { box-shadow: 0 0 50px rgba(201,168,76,0.6), 0 0 80px rgba(201,168,76,0.3); }
+  }
+
+  .arena-status {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(245,230,200,0.6);
+    min-height: 28px;
+  }
+
+  .arena-status.final {
+    font-family: 'Cinzel', serif;
+    font-style: normal;
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  
+    /* RESULT CARD */
   .result-card {
     display: none;
     background: linear-gradient(135deg, rgba(13,25,45,0.95), rgba(26,18,8,0.95));
@@ -362,12 +419,6 @@
     margin: 8px 0 4px;
     line-height: 1.1;
   }
-  .result-role {
-    font-style: italic;
-    font-size: 18px;
-    color: rgba(245,230,200,0.6);
-    margin-bottom: 28px;
-  }
   .result-decree {
     background: rgba(201,168,76,0.08);
     border-top: 1px solid rgba(201,168,76,0.2);
@@ -377,7 +428,7 @@
     font-size: 17px;
     color: rgba(245,230,200,0.75);
     line-height: 1.6;
-    margin-bottom: 24px;
+    margin: 20px 0;
   }
   .result-actions {
     display: flex;
@@ -401,34 +452,6 @@
     background: rgba(201,168,76,0.1);
     border-color: var(--gold);
     color: var(--gold);
-  }
-
-  /* STATS */
-  .stats-row {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .stat-box {
-    flex: 1;
-    background: rgba(201,168,76,0.05);
-    border: 1px solid rgba(201,168,76,0.15);
-    border-radius: 3px;
-    padding: 14px;
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Cinzel', serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--gold);
-    display: block;
-  }
-  .stat-lbl {
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: rgba(245,230,200,0.4);
-    margin-top: 4px;
   }
 
   /* HISTORY */
@@ -455,10 +478,8 @@
     font-size: 16px;
     color: rgba(245,230,200,0.8);
   }
-  .history-role {
-    font-size: 13px;
-    font-style: italic;
-    color: rgba(201,168,76,0.5);
+  .history-cartouche {
+    font-size: 18px;
     flex-shrink: 0;
   }
   .history-time {
@@ -487,10 +508,44 @@
     .result-name { font-size: 28px; }
     .section-card { padding: 20px; }
     .btn-summon { padding: 16px 32px; letter-spacing: 3px; }
-    .settings-row { flex-direction: column; }
+    .arena-name { font-size: 18px; padding: 10px 18px; }
+    .elimination-arena { padding: 24px; }
   }
+  
+    /* SETTINGS */
+  .settings-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .setting-item {
+    flex: 1;
+    min-width: 160px;
+  }
+  .setting-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: rgba(245,230,200,0.5);
+    margin-bottom: 8px;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+  }
+  .setting-select {
+    width: 100%;
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 3px;
+    padding: 9px 14px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 15px;
+    color: var(--sand);
+    outline: none;
+    cursor: pointer;
+  }
+  .setting-select option { background: #1a1208; color: var(--sand); }
 </style>
 </head>
+
 <body>
 
 <div class="bg-texture"></div>
@@ -513,36 +568,20 @@
     <div class="gold-divider"><div class="divider-diamond"></div></div>
   </div>
 
-  <!-- STATS -->
-  <div class="stats-row" id="statsRow" style="display:none">
-    <div class="stat-box">
-      <span class="stat-num" id="statCandidates">0</span>
-      <div class="stat-lbl">Seekers</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num" id="statDraws">0</span>
-      <div class="stat-lbl">Decrees</div>
-    </div>
-    <div class="stat-box">
-      <span class="stat-num" id="statUnique">0</span>
-      <div class="stat-lbl">Chosen</div>
-    </div>
-  </div>
-
   <!-- CANDIDATES INPUT -->
   <div class="section-card">
     <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
     <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
-    <div class="section-title"><span>𓂀</span> Scroll of Seekers</div>
+    <div class="section-title"><span>&#x13080;</span> Scroll of Seekers</div>
     <div class="input-row">
-      <input class="candidate-input" id="candidateInput" placeholder="Enter a candidate's name…" maxlength="60" />
+      <input class="candidate-input" id="candidateInput" placeholder="Enter a candidate's name..." maxlength="60" />
       <button class="btn-add" onclick="addCandidate()">+ Inscribe</button>
     </div>
     <div class="candidates-grid" id="candidatesGrid">
-      <span class="empty-hint">No seekers have presented themselves…</span>
+      <span class="empty-hint">No seekers have presented themselves...</span>
     </div>
   </div>
-
+  
   <!-- SETTINGS -->
   <div class="section-card">
     <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
@@ -587,28 +626,28 @@
   <!-- SUMMON BUTTON -->
   <div class="summon-section">
     <button class="btn-summon" id="summonBtn" onclick="summon()" disabled>
-      ⟡ Invoke the Oracle ⟡
+      Invoke the Oracle
     </button>
   </div>
 
-  <!-- SPINNING LOADER -->
-  <div class="wheel-container" id="wheelContainer">
-    <div class="spinning-ring"></div>
-    <div class="wheel-label">The sands of fate are shifting…</div>
+  <!-- ELIMINATION ARENA -->
+  <div class="elimination-arena" id="eliminationArena">
+    <div class="arena-title">The Oracle Weighs Each Soul...</div>
+    <div class="arena-names" id="arenaNames"></div>
+    <div class="arena-status" id="arenaStatus">Preparing the judgment...</div>
   </div>
 
   <!-- RESULT CARD -->
   <div class="result-card" id="resultCard">
     <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
     <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
-    <div class="result-label">𓂀 &nbsp; The Oracle Speaks &nbsp; 𓂀</div>
-    <div class="result-name" id="resultName">—</div>
-    <div class="result-role" id="resultRole">—</div>
-    <div class="result-decree" id="resultDecree">—</div>
+    <div class="result-label">&#x13080; &nbsp; The Oracle Has Spoken &nbsp; &#x13080;</div>
+    <div class="result-name" id="resultName">-</div>
+    <div class="result-decree" id="resultDecree">-</div>
     <div class="result-actions">
-      <button class="btn-secondary" onclick="summon()">↺ &nbsp; Draw Again</button>
-      <button class="btn-secondary" onclick="copyResult()">⎘ &nbsp; Copy Decree</button>
-      <button class="btn-secondary" onclick="clearHistory()">✕ &nbsp; Reset Scrolls</button>
+      <button class="btn-secondary" onclick="summon()">Draw Again</button>
+      <button class="btn-secondary" onclick="copyResult()">Copy Decree</button>
+      <button class="btn-secondary" onclick="clearHistory()">Reset Scrolls</button>
     </div>
   </div>
 
@@ -616,12 +655,12 @@
   <div class="section-card history-section" id="historySection" style="display:none">
     <div class="corner-ornament tl"></div><div class="corner-ornament tr"></div>
     <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
-    <div class="section-title"><span>𓏏</span> Annals of the Chosen</div>
+    <div class="section-title"><span>&#x13010;</span> Annals of the Chosen</div>
     <ul class="history-list" id="historyList"></ul>
   </div>
 
   <!-- FOOTER HIEROGLYPHS -->
-  <div class="footer-glyphs">𓂀 𓋹 𓏏 𓃭 𓇯 𓆣 𓁹 𓐍 𓈖</div>
+  <div class="footer-glyphs">&#x13080; &#x130B9; &#x13010; &#x130ED; &#x131C7; &#x13193; &#x13079; &#x1340D; &#x13216;</div>
 
 </div>
 
@@ -639,50 +678,70 @@
     "The oracle confirms: this appointment shall echo through the ages.",
   ];
 
+  const eliminationMessages = [
+    "The gods find this soul... lacking.",
+    "Anubis shakes his head.",
+    "The feather tips against this name.",
+    "Ra looks away.",
+    "The sands consume this fate.",
+    "Thoth strikes this from the scroll.",
+    "Osiris denies passage.",
+    "The scales reject this heart.",
+    "Horus sees another path.",
+    "Ma'at weighs and finds wanting."
+  ];
+
+  const egyptianIcons = ['&#x130ED;', '&#x13143;', '&#x130F9;', '&#x13188;', '&#x130EC;', '&#x13153;', '&#x13193;', '&#x130F0;', '&#x130ED;', '&#x13171;', '&#x13199;', '&#x130D7;'];
+
   let candidates = [];
+  let candidateData = {};
   let history = [];
-  let draws = 0;
-  let used = new Set();
 
   const grid = document.getElementById('candidatesGrid');
   const summonBtn = document.getElementById('summonBtn');
   const resultCard = document.getElementById('resultCard');
-  const wheelContainer = document.getElementById('wheelContainer');
+  const eliminationArena = document.getElementById('eliminationArena');
   const historySection = document.getElementById('historySection');
-  const statsRow = document.getElementById('statsRow');
 
   document.getElementById('candidateInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') addCandidate();
   });
+
+  function getRandomIcon() {
+    return egyptianIcons[Math.floor(Math.random() * egyptianIcons.length)];
+  }
 
   function addCandidate() {
     const inp = document.getElementById('candidateInput');
     const name = inp.value.trim();
     if (!name || candidates.includes(name)) { inp.value = ''; return; }
     candidates.push(name);
+    candidateData[name] = { icon: getRandomIcon() };
     inp.value = '';
     renderGrid();
-    updateStats();
   }
 
-  function removeCandidate(name) {
-    candidates = candidates.filter(c => c !== name);
-    used.delete(name);
-    renderGrid();
-    updateStats();
+  function removeCandidateByIndex(index) {
+    const name = candidates[index];
+    if (name) {
+      candidates = candidates.filter((_, i) => i !== index);
+      delete candidateData[name];
+      renderGrid();
+    }
   }
 
   function renderGrid() {
     if (candidates.length === 0) {
-      grid.innerHTML = '<span class="empty-hint">No seekers have presented themselves…</span>';
+      grid.innerHTML = '<span class="empty-hint">No seekers have presented themselves...</span>';
       summonBtn.disabled = true;
       return;
     }
     summonBtn.disabled = false;
-    grid.innerHTML = candidates.map(c => `
-      <div class="candidate-tag">
-        <span>${escapeHtml(c)}</span>
-        <span class="remove" onclick="removeCandidate(${JSON.stringify(c)})">×</span>
+    grid.innerHTML = candidates.map((c, index) => `
+      <div class="cartouche">
+        <span class="cartouche-icon">${candidateData[c]?.icon || '&#x13080;'}</span>
+        <span class="cartouche-name">${escapeHtml(c)}</span>
+        <button class="remove" onclick="removeCandidateByIndex(${index})">x</button>
       </div>
     `).join('');
   }
@@ -691,80 +750,116 @@
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  function updateStats() {
-    const uniqueChosen = new Set(history.map(h => h.name)).size;
-    document.getElementById('statCandidates').textContent = candidates.length;
-    document.getElementById('statDraws').textContent = draws;
-    document.getElementById('statUnique').textContent = uniqueChosen;
-    if (candidates.length > 0 || draws > 0) {
-      statsRow.style.display = 'flex';
-    }
-  }
-
   function summon() {
     if (candidates.length === 0) return;
-
+    
     const mode = document.getElementById('modeSelect').value;
-    const count = parseInt(document.getElementById('countSelect').value);
+    const count = Math.min(parseInt(document.getElementById('countSelect').value), candidates.length);
     const role = document.getElementById('roleSelect').value;
 
-    let pool = [...candidates];
-    if (mode === 'noRepeat') {
-      pool = candidates.filter(c => !used.has(c));
-      if (pool.length === 0) { used.clear(); pool = [...candidates]; }
+    if (candidates.length === 1) {
+      showResult([candidates[0]], role);
+      return;
     }
-    if (pool.length === 0) pool = [...candidates];
 
     resultCard.classList.remove('visible');
-    wheelContainer.classList.add('visible');
     summonBtn.disabled = true;
 
-    setTimeout(() => {
-      wheelContainer.classList.remove('visible');
+    // Shuffle candidates for elimination order
+    let pool = [...candidates];
+    if (mode === 'weighted') {
+      // Weight towards earlier entries
+      pool = pool.sort(() => Math.random() - 0.3);
+    } else {
+      pool = pool.sort(() => Math.random() - 0.5);
+    }
+    
+    const chosen = pool.slice(pool.length - count); // Last ones standing win
+    const toEliminate = pool.slice(0, pool.length - count);
 
-      let chosen = [];
-      if (mode === 'weighted') {
-        const weights = candidates.map((_, i) => candidates.length - i);
-        const pickedSet = new Set();
-        const maxTries = pool.length * 10;
-        let tries = 0;
-        while (chosen.length < Math.min(count, pool.length) && tries < maxTries) {
-          tries++;
-          const total = pool.filter(c => !pickedSet.has(c)).reduce((sum, c, i) => sum + (weights[i] || 1), 0);
-          let r = Math.random() * total;
-          for (let i = 0; i < pool.length; i++) {
-            if (pickedSet.has(pool[i])) continue;
-            r -= (weights[i] || 1);
-            if (r <= 0) { pickedSet.add(pool[i]); chosen.push(pool[i]); break; }
-          }
+    // Build arena
+    const arenaNames = document.getElementById('arenaNames');
+    const arenaStatus = document.getElementById('arenaStatus');
+    
+    arenaNames.innerHTML = candidates.map(name => `
+      <div class="arena-name" data-name="${escapeHtml(name)}">${escapeHtml(name)}</div>
+    `).join('');
+    
+    arenaStatus.textContent = 'The Oracle gazes upon the seekers...';
+    arenaStatus.classList.remove('final');
+    eliminationArena.classList.add('visible');
+
+    // Eliminate one by one
+    let elimIndex = 0;
+    const eliminateNext = () => {
+      if (elimIndex < toEliminate.length) {
+        const nameToElim = toEliminate[elimIndex];
+        const el = arenaNames.querySelector(`[data-name="${escapeHtml(nameToElim)}"]`);
+        if (el) {
+          el.classList.add('eliminated');
+          arenaStatus.textContent = eliminationMessages[Math.floor(Math.random() * eliminationMessages.length)];
         }
-        if (chosen.length < Math.min(count, pool.length)) {
-          pool.filter(c => !pickedSet.has(c)).forEach(c => { if (chosen.length < count) chosen.push(c); });
-        }
+        elimIndex++;
+        setTimeout(eliminateNext, 800);
       } else {
-        const shuffled = [...pool].sort(() => Math.random() - 0.5);
-        chosen = shuffled.slice(0, Math.min(count, shuffled.length));
+        // Final reveal
+        chosen.forEach(name => {
+          const winnerEl = arenaNames.querySelector(`[data-name="${escapeHtml(name)}"]`);
+          if (winnerEl) {
+            winnerEl.classList.add('chosen');
+          }
+        });
+        arenaStatus.textContent = count > 1 ? 'The Oracle has chosen the worthy!' : 'The Oracle has chosen!';
+        arenaStatus.classList.add('final');
+
+        setTimeout(() => {
+          eliminationArena.classList.remove('visible');
+          showResult(chosen, role);
+        }, 2000);
       }
+    };
 
-      if (mode === 'noRepeat') chosen.forEach(c => used.add(c));
+    setTimeout(eliminateNext, 1000);
+  }
 
-      const displayName = count === 1 ? chosen[0] : chosen.join(' & ');
-      const roleText = count === 1 ? role : `${role} (×${chosen.length})`;
-      const decree = decrees[Math.floor(Math.random() * decrees.length)];
+  function showResult(chosenNames, role) {
+    const decree = decrees[Math.floor(Math.random() * decrees.length)];
+    const displayName = chosenNames.length === 1 ? chosenNames[0] : chosenNames.join(' & ');
 
-      document.getElementById('resultName').textContent = displayName;
-      document.getElementById('resultRole').textContent = roleText;
-      document.getElementById('resultDecree').textContent = decree;
-      resultCard.classList.add('visible');
-      summonBtn.disabled = false;
+    document.getElementById('resultName').textContent = displayName;
+    document.getElementById('resultDecree').textContent = decree;
+    resultCard.classList.add('visible');
+    summonBtn.disabled = false;
 
-      draws++;
-      const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      chosen.forEach(name => history.unshift({ name, role, time: now }));
-      if (history.length > 20) history = history.slice(0, 20);
-      renderHistory();
-      updateStats();
-    }, 1800);
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    chosenNames.forEach(name => {
+      history.unshift({ 
+        name, 
+        role,
+        time: now,
+        icon: candidateData[name]?.icon || '&#x13080;'
+      });
+    });
+    if (history.length > 20) history = history.slice(0, 20);
+    renderHistory();
+  }
+
+  function showResult(chosenName) {
+    const decree = decrees[Math.floor(Math.random() * decrees.length)];
+
+    document.getElementById('resultName').textContent = chosenName;
+    document.getElementById('resultDecree').textContent = decree;
+    resultCard.classList.add('visible');
+    summonBtn.disabled = false;
+
+    const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    history.unshift({ 
+      name: chosenName, 
+      time: now,
+      icon: candidateData[chosenName]?.icon || '&#x13080;'
+    });
+    if (history.length > 20) history = history.slice(0, 20);
+    renderHistory();
   }
 
   function renderHistory() {
@@ -773,8 +868,8 @@
     document.getElementById('historyList').innerHTML = history.map((h, i) => `
       <li class="history-item">
         <span class="history-rank">${String(i + 1).padStart(2, '0')}.</span>
+        <span class="history-cartouche">${h.icon}</span>
         <span class="history-name">${escapeHtml(h.name)}</span>
-        <span class="history-role">${escapeHtml(h.role)}</span>
         <span class="history-time">${h.time}</span>
       </li>
     `).join('');
@@ -782,23 +877,20 @@
 
   function copyResult() {
     const name = document.getElementById('resultName').textContent;
-    const role = document.getElementById('resultRole').textContent;
     const decree = document.getElementById('resultDecree').textContent;
-    const text = `Oracle of Hiring\nChosen: ${name}\nRole: ${role}\n\n"${decree}"`;
+    const text = `Oracle of Hiring\nChosen: ${name}\n\n"${decree}"`;
     navigator.clipboard.writeText(text).catch(() => {
-      alert('Copy failed — please copy manually.');
+      alert('Copy failed - please copy manually.');
     });
   }
 
   function clearHistory() {
     history = [];
-    draws = 0;
-    used.clear();
     historySection.style.display = 'none';
     resultCard.classList.remove('visible');
-    updateStats();
   }
 </script>
 
 </body>
 </html>
+
