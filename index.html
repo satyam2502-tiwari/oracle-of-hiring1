@@ -419,6 +419,12 @@
     margin: 8px 0 4px;
     line-height: 1.1;
   }
+  .result-role {
+    font-style: italic;
+    font-size: 18px;
+    color: rgba(245,230,200,0.6);
+    margin-bottom: 28px;
+  }
   .result-decree {
     background: rgba(201,168,76,0.08);
     border-top: 1px solid rgba(201,168,76,0.2);
@@ -643,6 +649,7 @@
     <div class="corner-ornament bl"></div><div class="corner-ornament br"></div>
     <div class="result-label">&#x13080; &nbsp; The Oracle Has Spoken &nbsp; &#x13080;</div>
     <div class="result-name" id="resultName">-</div>
+    <div class="result-role" id="resultRole">-</div>
     <div class="result-decree" id="resultDecree">-</div>
     <div class="result-actions">
       <button class="btn-secondary" onclick="summon()">Draw Again</button>
@@ -844,19 +851,25 @@
     renderHistory();
   }
 
-  function showResult(chosenName) {
+    function showResult(chosenNames, role) {
     const decree = decrees[Math.floor(Math.random() * decrees.length)];
+    const displayName = chosenNames.length === 1 ? chosenNames[0] : chosenNames.join(' & ');
+    const roleText = chosenNames.length === 1 ? role : `${role} (x${chosenNames.length})`;
 
-    document.getElementById('resultName').textContent = chosenName;
+    document.getElementById('resultName').textContent = displayName;
+    document.getElementById('resultRole').textContent = roleText;
     document.getElementById('resultDecree').textContent = decree;
     resultCard.classList.add('visible');
     summonBtn.disabled = false;
 
     const now = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    history.unshift({ 
-      name: chosenName, 
-      time: now,
-      icon: candidateData[chosenName]?.icon || '&#x13080;'
+    chosenNames.forEach(name => {
+      history.unshift({ 
+        name, 
+        role,
+        time: now,
+        icon: candidateData[name]?.icon || '&#x13080;'
+      });
     });
     if (history.length > 20) history = history.slice(0, 20);
     renderHistory();
@@ -893,4 +906,3 @@
 
 </body>
 </html>
-
